@@ -1,7 +1,7 @@
 package pro.sky.skypro.spring.homework24.controller;
 
 import org.springframework.web.bind.annotation.*;
-import pro.sky.skypro.spring.homework24.Employee;
+import pro.sky.skypro.spring.homework24.data.Employee;
 import pro.sky.skypro.spring.homework24.service.EmployeeService;
 
 @RestController
