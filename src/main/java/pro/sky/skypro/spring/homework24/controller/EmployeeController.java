@@ -9,7 +9,7 @@ import pro.sky.skypro.spring.homework24.service.EmployeeService;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private final pro.sky.skypro.spring.homework24.service.EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
@@ -21,12 +21,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public pro.sky.skypro.spring.homework24.data.Employee addEmpl(@RequestParam String firstName, @RequestParam String lastName) {
+    public Employee addEmpl(@RequestParam String firstName, @RequestParam String lastName) {
         return employeeService.add(firstName, lastName);
     }
 
     @GetMapping("/remove")
-    public pro.sky.skypro.spring.homework24.data.Employee removeEmpl(@RequestParam String firstName, @RequestParam String lastName) throws pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException {
+    public Employee removeEmpl(@RequestParam String firstName, @RequestParam String lastName) throws EmployeeNotFoundException {
         return employeeService.remove(firstName, lastName);
     }
 

@@ -23,19 +23,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    public pro.sky.skypro.spring.homework24.data.Employee remove(String firstName, String lastName) throws pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException {
-        pro.sky.skypro.spring.homework24.data.Employee employee = new pro.sky.skypro.spring.homework24.data.Employee(firstName, lastName);
+    public Employee remove(String firstName, String lastName) throws EmployeeNotFoundException {
+        Employee employee = new Employee(firstName, lastName);
         int index = employeeList.indexOf(employee);
         if (index == -1) {
-            throw new pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException();
+            throw new EmployeeNotFoundException();
         }
         return employeeList.remove(index);
     }
 
 
 
-    public pro.sky.skypro.spring.homework24.data.Employee find(String firstName, String lastName) throws pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException {
-        pro.sky.skypro.spring.homework24.data.Employee employee = new Employee(firstName, lastName);
+    public Employee find(String firstName, String lastName) throws EmployeeNotFoundException {
+        Employee employee = new Employee(firstName, lastName);
         if (firstName.equals(employee.getFirstName()) && (lastName.equals(employee.getLastName()))) {
             return employee;
         }
