@@ -1,53 +1,45 @@
 package pro.sky.skypro.spring.homework24.impl;
 
 import org.springframework.stereotype.Service;
-import pro.sky.skypro.spring.homework24.Employee;
-import pro.sky.skypro.spring.homework24.exception.EmployeeStorageOverflowException;
-import pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException;
 import pro.sky.skypro.spring.homework24.service.EmployeeService;
+import pro.sky.skypro.spring.homework24.data.Employee;
+import pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException;
+import pro.sky.skypro.spring.homework24.exception.EmployeeStorageOverflowException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    Employee[] employees = new Employee[3];
+    List<Employee> employeeList = new ArrayList<>();
 
     public Employee add(String firstName, String lastName) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] == null) {
-                employees[i] = new Employee(firstName, lastName);
-                Employee employee = employees[i];
-                return employee;
-            }
+        Employee employee = new Employee(firstName, lastName);
+        if (employeeList.add(employee)) {
+            return employee;
         }
         throw new EmployeeStorageOverflowException();
     }
 
-    public Employee remove(String firstName, String lastName) throws EmployeeNotFoundException {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] == null) {
-                continue;
-            }
-            if (firstName.equals(employees[i].getFirstName()) && (lastName.equals(employees[i].getLastName()))) {
-                Employee employee = employees[i];
-                employees[i] = null;
-                return employee;
-            }
+
+    public pro.sky.skypro.spring.homework24.data.Employee remove(String firstName, String lastName) throws pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException {
+        pro.sky.skypro.spring.homework24.data.Employee employee = new pro.sky.skypro.spring.homework24.data.Employee(firstName, lastName);
+        int index = employeeList.indexOf(employee);
+        if (index == -1) {
+            throw new pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException();
+        }
+        return employeeList.remove(index);
+    }
+
+
+
+    public pro.sky.skypro.spring.homework24.data.Employee find(String firstName, String lastName) throws pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException {
+        pro.sky.skypro.spring.homework24.data.Employee employee = new Employee(firstName, lastName);
+        if (firstName.equals(employee.getFirstName()) && (lastName.equals(employee.getLastName()))) {
+            return employee;
         }
         throw new EmployeeNotFoundException();
     }
-
-    public Employee find(String firstName, String lastName) throws EmployeeNotFoundException {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] == null) {
-                continue;
-            }
-            if (firstName.equals(employees[i].getFirstName()) && (lastName.equals(employees[i].getLastName()))) {
-                Employee employee = employees[i];
-                return employee;
-            }
-        }
-        throw new EmployeeNotFoundException();
-    }
-
 
 }
