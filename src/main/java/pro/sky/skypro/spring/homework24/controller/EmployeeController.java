@@ -27,7 +27,6 @@ public class EmployeeController {
     @GetMapping("/remove")
     public Employee removeEmpl(@RequestParam String firstName, @RequestParam String lastName) {
         return employeeService.remove(firstName, lastName);
-
     }
 
     @GetMapping("/find")
