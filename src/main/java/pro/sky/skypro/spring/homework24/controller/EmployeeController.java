@@ -26,12 +26,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/remove")
-    public Employee removeEmpl(@RequestParam String firstName, @RequestParam String lastName) throws EmployeeNotFoundException {
+    public Employee removeEmpl(@RequestParam String firstName, @RequestParam String lastName) {
         return employeeService.remove(firstName, lastName);
     }
 
     @GetMapping("/find")
-    public Employee findEmpl(@RequestParam String firstName, @RequestParam String lastName) throws EmployeeNotFoundException {
+    public Employee findEmpl(@RequestParam String firstName, @RequestParam String lastName) {
         return employeeService.find(firstName, lastName);
     }
 }
