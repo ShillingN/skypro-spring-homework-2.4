@@ -14,15 +14,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee add(String firstName, String lastName) {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] == null) {
-                employees[i] = new Employee(firstName, lastName);
-                Employee employee = employees[i];
+                Employee employee = new Employee(firstName, lastName);
+                employees[i] = employee;
                 return employee;
             }
         }
         throw new EmployeeStorageOverflowException();
     }
 
-    public Employee remove(String firstName, String lastName) throws EmployeeNotFoundException {
+    public Employee remove(String firstName, String lastName) {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] == null) {
                 continue;
@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new EmployeeNotFoundException();
     }
 
-    public Employee find(String firstName, String lastName) throws EmployeeNotFoundException {
+    public Employee find(String firstName, String lastName) {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] == null) {
                 continue;
