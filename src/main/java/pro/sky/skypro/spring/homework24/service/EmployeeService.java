@@ -1,6 +1,5 @@
 package pro.sky.skypro.spring.homework24.service;
 
-import pro.sky.skypro.spring.homework24.Employee;
 import pro.sky.skypro.spring.homework24.data.Employee;
 
 public interface EmployeeService {
