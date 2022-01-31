@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pro.sky.skypro.spring.homework24.data.Employee;
 import pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -11,8 +12,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final List<Employee> employeeList;
 
-    public EmployeeServiceImpl(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public EmployeeServiceImpl() {
+        this.employeeList = new ArrayList<>();
     }
 
     public Employee add(String firstName, String lastName) {
@@ -32,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public Employee find(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee) == true) {
+        if (employeeList.contains(employee)) {
             return employee;
         }
         throw new EmployeeNotFoundException();
