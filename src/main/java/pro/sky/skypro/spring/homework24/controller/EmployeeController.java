@@ -25,13 +25,13 @@ public class EmployeeController {
         return employeeService.add(firstName, lastName);
     }
 
-    @GetMapping("/remove")
-    public Employee removeEmpl(@RequestParam String firstName, @RequestParam String lastName) {
-        return employeeService.remove(firstName, lastName);
+    @GetMapping("/remove/{id}")
+    public Employee removeEmpl(@PathVariable("id") Integer id) {
+        return employeeService.remove(id);
     }
 
-    @GetMapping("/find")
-    public Employee findEmpl(@RequestParam String firstName, @RequestParam String lastName) {
-        return employeeService.find(firstName, lastName);
+    @GetMapping("/find/{id}")
+    public Employee findEmpl(@PathVariable("id") Integer id) {
+        return employeeService.find(id);
     }
 }
