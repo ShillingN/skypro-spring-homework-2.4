@@ -32,9 +32,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Employee> printDepartmentEmpl(int departmentId) {
+    public List<Employee> printDepartmentEmployee(int departmentId) {
         return employeeService.getEmployees().stream()
                 .filter(employee -> employee.getDepartment() == departmentId)
+                .sorted(Comparator.comparing(Employee::getFullName))
                 .collect(Collectors.toList());
     }
 }

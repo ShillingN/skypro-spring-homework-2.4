@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.*;
 import pro.sky.skypro.spring.homework24.data.Employee;
 import pro.sky.skypro.spring.homework24.service.DepartmentService;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/departments")
@@ -18,7 +17,7 @@ public class DepartmentController {
 
     @GetMapping("/all/{departmentId}")
     public List<Employee> printDepartmentEmployee(@PathVariable("departmentId") Integer departmentId) {
-        return departmentService.printDepartmentEmpl(departmentId);
+        return departmentService.printDepartmentEmployee(departmentId);
     }
 
     @GetMapping("/max-salary/{departmentId}")

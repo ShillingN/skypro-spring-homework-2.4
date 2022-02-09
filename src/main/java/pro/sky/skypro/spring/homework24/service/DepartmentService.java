@@ -10,7 +10,7 @@ public interface DepartmentService {
 
     Optional<Employee> getMinSalary(int departmentId);
 
-    List<Employee> printDepartmentEmpl(int departmentId);
+    List<Employee> printDepartmentEmployee(int departmentId);
 
 
 }

@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeList.put("Ольга Ганина", new Employee("Ольга", "Ганина", 4, 270_000));
     }
 
-    private String getEmployeeKey(String firstName, String lastName) {
+    private String getFullNameKey(String firstName, String lastName) {
         return firstName + " " + lastName;
     }
 
@@ -32,23 +32,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employeeList.containsValue(employee)) {
             throw new EmployeeIsAlreadyOnTheListException();
         } else {
-            employeeList.put(getEmployeeKey(firstName, lastName), employee);
+            employeeList.put(getFullNameKey(firstName, lastName), employee);
             return employee;
         }
     }
 
     @Override
     public Employee remove(String firstName, String lastName) {
-        if (employeeList.containsKey(getEmployeeKey(firstName, lastName))) {
-            return employeeList.remove(getEmployeeKey(firstName, lastName));
+        if (employeeList.containsKey(getFullNameKey(firstName, lastName))) {
+            return employeeList.remove(getFullNameKey(firstName, lastName));
         }
         throw new EmployeeNotFoundException();
     }
 
     @Override
     public Employee find(String firstName, String lastName) {
-        if (employeeList.containsKey(getEmployeeKey(firstName, lastName))) {
-            return employeeList.get(getEmployeeKey(firstName, lastName));
+        if (employeeList.containsKey(getFullNameKey(firstName, lastName))) {
+            return employeeList.get(getFullNameKey(firstName, lastName));
         }
         throw new EmployeeNotFoundException();
     }
@@ -61,7 +61,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getAllEmployees() {
         return getEmployees().stream()
-                .sorted(Comparator.comparingInt(Employee::getDepartment))
+                .sorted(Comparator.comparingInt(Employee::getDepartment)
+                        .thenComparing(Employee::getFullName))
                 .collect(Collectors.toList());
     }
 }

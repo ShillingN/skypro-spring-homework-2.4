@@ -1,5 +1,7 @@
 package pro.sky.skypro.spring.homework24.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 public class Employee {
@@ -22,6 +24,11 @@ public class Employee {
 
     public String getLastName() {
         return lastName;
+    }
+
+    @JsonIgnore
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public Integer getDepartment() {
