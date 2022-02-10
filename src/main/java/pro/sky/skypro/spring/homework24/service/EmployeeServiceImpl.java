@@ -11,44 +11,39 @@ import java.util.Map;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final Map<Integer, Employee> employeeList;
+    private final Map<String, Employee> employeeList;
 
     public EmployeeServiceImpl() {
         this.employeeList = new HashMap<>();
     }
 
-    Integer nextId = 0;
-
-    private Integer getNextId() {
-        Integer result = nextId;
-        nextId++;
-        return result;
-    }
 
     @Override
     public Employee add(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
         if (employeeList.containsValue(employee)) {
             throw new EmployeeIsAlreadyOnTheListException();
-        } else {
-            employeeList.put(getNextId(), employee);
-            System.out.println(employeeList.get(0));
-            return employee;
         }
+            employeeList.put(employee.getFullName(), employee);
+            System.out.println(employeeList.get(employee.getFullName()));
+            return employee;
+
     }
 
     @Override
-    public Employee remove(Integer id) {
-        if (employeeList.containsKey(id)) {
-            return employeeList.remove(id);
+    public Employee remove(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        if (employeeList.containsKey(employee.getFullName())) {
+            return employeeList.remove(employee.getFullName());
         }
         throw new EmployeeNotFoundException();
     }
 
     @Override
-    public Employee find(Integer id) {
-        if (employeeList.containsKey(id)) {
-            return  employeeList.get(id);
+    public Employee find(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        if (employeeList.containsKey(employee.getFullName())) {
+            return  employeeList.get(employee.getFullName());
         }
         throw new EmployeeNotFoundException();
     }

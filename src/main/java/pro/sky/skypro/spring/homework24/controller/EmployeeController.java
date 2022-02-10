@@ -2,7 +2,6 @@ package pro.sky.skypro.spring.homework24.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pro.sky.skypro.spring.homework24.data.Employee;
-import pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException;
 import pro.sky.skypro.spring.homework24.service.EmployeeService;
 
 @RestController
@@ -26,12 +25,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/remove/{id}")
-    public Employee removeEmpl(@PathVariable("id") Integer id) {
-        return employeeService.remove(id);
+    public Employee removeEmpl(@RequestParam String firstName, @RequestParam String lastName) {
+        return employeeService.remove(firstName, lastName);
     }
 
     @GetMapping("/find/{id}")
-    public Employee findEmpl(@PathVariable("id") Integer id) {
-        return employeeService.find(id);
+    public Employee findEmpl(@RequestParam String firstName, @RequestParam String lastName) {
+        return employeeService.find(firstName, lastName);
     }
 }
