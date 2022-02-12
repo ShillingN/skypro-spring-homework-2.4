@@ -2,39 +2,48 @@ package pro.sky.skypro.spring.homework24.service;
 
 import org.springframework.stereotype.Service;
 import pro.sky.skypro.spring.homework24.data.Employee;
+import pro.sky.skypro.spring.homework24.exception.EmployeeIsAlreadyOnTheListException;
 import pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final List<Employee> employeeList;
+    private final Map<String, Employee> employeeList;
 
     public EmployeeServiceImpl() {
-        this.employeeList = new ArrayList<>();
+        this.employeeList = new HashMap<>();
     }
 
+
+    @Override
     public Employee add(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        employeeList.add(employee);
-        return employee;
+        if (employeeList.containsValue(employee)) {
+            throw new EmployeeIsAlreadyOnTheListException();
+        }
+            employeeList.put(employee.getFullName(), employee);
+            System.out.println(employeeList.get(employee.getFullName()));
+            return employee;
+
     }
 
+    @Override
     public Employee remove(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        int index = employeeList.indexOf(employee);
-        if (index == -1) {
-            throw new EmployeeNotFoundException();
+        if (employeeList.containsKey(employee.getFullName())) {
+            return employeeList.remove(employee.getFullName());
         }
-        return employeeList.remove(index);
+        throw new EmployeeNotFoundException();
     }
 
+    @Override
     public Employee find(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee)) {
-            return employee;
+        if (employeeList.containsKey(employee.getFullName())) {
+            return  employeeList.get(employee.getFullName());
         }
         throw new EmployeeNotFoundException();
     }
