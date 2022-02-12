@@ -1,5 +1,6 @@
 package pro.sky.skypro.spring.homework24.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.skypro.spring.homework24.data.Employee;
 import pro.sky.skypro.spring.homework24.exception.EmployeeIsAlreadyOnTheListException;
@@ -31,10 +32,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee(firstName, lastName, department, salary);
         if (employeeList.containsValue(employee)) {
             throw new EmployeeIsAlreadyOnTheListException();
-        } else {
-            employeeList.put(getFullNameKey(firstName, lastName), employee);
-            return employee;
         }
+        employeeList.put(getFullNameKey(firstName, lastName), employee);
+        return employee;
     }
 
     @Override

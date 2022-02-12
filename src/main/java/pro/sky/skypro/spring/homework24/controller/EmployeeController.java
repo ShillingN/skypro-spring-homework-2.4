@@ -1,7 +1,9 @@
 package pro.sky.skypro.spring.homework24.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.skypro.spring.homework24.data.Employee;
+import pro.sky.skypro.spring.homework24.exception.IncorrectCharacterException;
 import pro.sky.skypro.spring.homework24.service.EmployeeService;
 
 import java.util.List;
@@ -26,7 +28,10 @@ public class EmployeeController {
                             @RequestParam String lastName,
                             @RequestParam Integer department,
                             @RequestParam Integer salary) {
-        return employeeService.add(firstName, lastName, department, salary);
+        if (StringUtils.isAlphaSpace(firstName + lastName)) {
+            return employeeService.add(StringUtils.capitalize(firstName),StringUtils.capitalize(lastName), department, salary);
+        }
+        throw new IncorrectCharacterException();
     }
 
     @GetMapping("/remove")
