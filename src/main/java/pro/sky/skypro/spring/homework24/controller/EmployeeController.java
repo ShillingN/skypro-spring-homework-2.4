@@ -1,8 +1,12 @@
 package pro.sky.skypro.spring.homework24.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.skypro.spring.homework24.data.Employee;
+import pro.sky.skypro.spring.homework24.exception.IncorrectCharacterException;
 import pro.sky.skypro.spring.homework24.service.EmployeeService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
@@ -20,17 +24,25 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public Employee addEmpl(@RequestParam String firstName, @RequestParam String lastName) {
-        return employeeService.add(firstName, lastName);
+    public Employee addEmployee(@RequestParam String firstName,
+                            @RequestParam String lastName,
+                            @RequestParam Integer department,
+                            @RequestParam Integer salary) {
+        if (StringUtils.isAlphaSpace(firstName + lastName)) {
+            return employeeService.add(StringUtils.capitalize(firstName),StringUtils.capitalize(lastName), department, salary);
+        }
+        throw new IncorrectCharacterException();
     }
 
-    @GetMapping("/remove/{id}")
-    public Employee removeEmpl(@RequestParam String firstName, @RequestParam String lastName) {
+    @GetMapping("/remove")
+    public Employee removeEmployee(@RequestParam String firstName,
+                               @RequestParam String lastName) {
         return employeeService.remove(firstName, lastName);
     }
 
-    @GetMapping("/find/{id}")
-    public Employee findEmpl(@RequestParam String firstName, @RequestParam String lastName) {
+    @GetMapping("/find")
+    public Employee findEmployee(@RequestParam String firstName,
+                             @RequestParam String lastName) {
         return employeeService.find(firstName, lastName);
     }
 }
