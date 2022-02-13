@@ -57,12 +57,4 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Set<Employee> getEmployees() {
         return new HashSet<>(employeeList.values());
     }
-
-    @Override
-    public List<Employee> getAllEmployees() {
-        return getEmployees().stream()
-                .sorted(Comparator.comparingInt(Employee::getDepartment)
-                        .thenComparing(Employee::getFullName))
-                .collect(Collectors.toList());
-    }
 }

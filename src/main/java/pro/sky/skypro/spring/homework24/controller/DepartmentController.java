@@ -20,13 +20,18 @@ public class DepartmentController {
         return departmentService.printDepartmentEmployee(departmentId);
     }
 
+    @GetMapping("/all")
+    public List<Employee> printAllEmployee() {
+        return departmentService.printAllEmployee();
+    }
+
     @GetMapping("/max-salary/{departmentId}")
     public Employee getMaxSalary(@PathVariable Integer departmentId) {
-        return departmentService.getMaxSalary(departmentId).orElseThrow();
+        return departmentService.getMaxSalary(departmentId);
     }
 
     @GetMapping("/min-salary/{departmentId}")
     public Employee getMinSalary(@PathVariable Integer departmentId) {
-        return departmentService.getMinSalary(departmentId).orElseThrow();
+        return departmentService.getMinSalary(departmentId);
     }
 }

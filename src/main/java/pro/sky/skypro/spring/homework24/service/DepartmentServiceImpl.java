@@ -2,10 +2,10 @@ package pro.sky.skypro.spring.homework24.service;
 
 import org.springframework.stereotype.Service;
 import pro.sky.skypro.spring.homework24.data.Employee;
+import pro.sky.skypro.spring.homework24.exception.EmployeeNotFoundException;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,17 +18,19 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Optional<Employee> getMaxSalary(int departmentId) {
+    public Employee getMaxSalary(int departmentId) {
         return employeeService.getEmployees().stream()
                 .filter(e -> e.getDepartment() == departmentId)
-                .max(Comparator.comparingInt(Employee::getSalary));
+                .max(Comparator.comparingInt(Employee::getSalary))
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 
     @Override
-    public Optional<Employee> getMinSalary(int departmentId) {
+    public Employee getMinSalary(int departmentId) {
         return employeeService.getEmployees().stream()
                 .filter(employee -> employee.getDepartment() == departmentId)
-                .min(Comparator.comparingInt(Employee::getSalary));
+                .min(Comparator.comparingInt(Employee::getSalary))
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 
     @Override
@@ -36,6 +38,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         return employeeService.getEmployees().stream()
                 .filter(employee -> employee.getDepartment() == departmentId)
                 .sorted(Comparator.comparing(Employee::getFullName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Employee> printAllEmployee() {
+        return employeeService.getEmployees().stream()
+                .sorted(Comparator.comparing(Employee::getDepartment)
+                        .thenComparing(Employee::getFullName))
                 .collect(Collectors.toList());
     }
 }

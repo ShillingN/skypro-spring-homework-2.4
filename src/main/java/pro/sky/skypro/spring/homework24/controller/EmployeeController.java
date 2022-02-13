@@ -45,10 +45,4 @@ public class EmployeeController {
                              @RequestParam String lastName) {
         return employeeService.find(firstName, lastName);
     }
-
-    @GetMapping("/all")
-    public List<Employee> printDepartmentEmployee() {
-        return employeeService.getAllEmployees();
-    }
-
 }

@@ -13,6 +13,4 @@ public interface EmployeeService {
     Employee find(String firstName, String lastName);
 
     Set<Employee> getEmployees();
-
-    List<Employee> getAllEmployees();
 }
